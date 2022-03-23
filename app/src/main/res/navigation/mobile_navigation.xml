@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_afficher">
+
+    <fragment
+        android:id="@+id/navigation_afficher"
+        android:name="com.example.android_final.ui.afficher.AfficherFragment"
+        android:label="Afficher"
+        tools:layout="@layout/fragment_afficher" />
+
+    <fragment
+        android:id="@+id/navigation_ajouter"
+        android:name="com.example.android_final.ui.ajouter.AjouterFragment"
+        android:label="Ajouter"
+        tools:layout="@layout/fragment_ajouter" />
+
+    <fragment
+        android:id="@+id/navigation_compte"
+        android:name="com.example.android_final.ui.compte.CompteFragment"
+        android:label="Compte"
+        tools:layout="@layout/fragment_compte" />
+    <fragment
+        android:id="@+id/navigation_appareil"
+        android:name="com.example.android_final.ui.appareil.AppareilFragment"
+        android:label="Appareil"
+        tools:layout="@layout/fragment_appareil" />
+</navigation>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_afficher"
+        android:icon="@drawable/ic_action_afficher"
+        android:title="Afficher" />
+
+    <item
+        android:id="@+id/navigation_ajouter"
+        android:icon="@drawable/ic_action_ajouter"
+        android:title="Ajouter" />
+
+    <item
+        android:id="@+id/navigation_appareil"
+        android:icon="@drawable/ic_action_appareil"
+        android:title="Appareil" />
+    <item
+        android:id="@+id/navigation_compte"
+        android:icon="@drawable/ic_action_compte"
+        android:title="Compte" />
+
+</menu>
