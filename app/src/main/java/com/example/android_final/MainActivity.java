@@ -2,9 +2,11 @@ package com.example.android_final;
 
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.bhaptics.bhapticsmanger.BhapticsModule;
@@ -21,10 +23,17 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.android_final.databinding.ActivityMainBinding;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final int BLUETOOTH_PERMISSION_CODE = 112;
     private ActivityMainBinding binding;
+
+    private BluetoothAdapter BA;
+    private Set<BluetoothDevice> pairedDevices;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
+        bluetooth();
 
         connexion_bhaptic();
 
@@ -50,52 +60,44 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void connexion_bhaptic() {
-
-        BluetoothAdapter BA;
+    public void bluetooth() {
         BA = BluetoothAdapter.getDefaultAdapter();
 
-        Intent turnOn = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+        if (BA == null) {
+            Toast.makeText(this, "bluetooth not supported", Toast.LENGTH_LONG).show();
 
+            finish();
+        }
+        if (BA != null) {
+        if (BA.isEnabled()) {
+            Toast.makeText(this, "bluetooth supported", Toast.LENGTH_LONG).show();
+
+        }}
+
+        Intent intentOn = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        startActivityForResult(turnOn, 0);
+        startActivityForResult(intentOn, 0);
+        Toast.makeText(this, "Turned on", Toast.LENGTH_LONG).show();
 
 
-      //  checkPermission(Manifest.permission.BLUETOOTH, BLUETOOTH_PERMISSION_CODE);
+
+    }
+
+    public void connexion_bhaptic() {
+
 
         BhapticsModule.initialize(getApplicationContext());
 
     }
 
-/*    public void checkPermission(String permission, int requestCode){
 
-        if (ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_DENIED)
-        {
-            ActivityCompat.requestPermissions(this, new String []{permission}, requestCode);
-        }
-        else
-        {
-            Toast.makeText(this, "Permission Accordee", Toast.LENGTH_LONG).show();
-        }
-
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if(requestCode==BLUETOOTH_PERMISSION_CODE){
-            if(grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_GRANTED){
-                Toast.makeText(this, "Bluetooth ok", Toast.LENGTH_LONG).show();
-            }else{
-                Toast.makeText(this, "Bluetooth non ok", Toast.LENGTH_LONG).show();
-
-            }
-        }
-    }
-
-
-*/
 }
